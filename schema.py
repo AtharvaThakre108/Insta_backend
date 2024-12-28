@@ -1,30 +1,33 @@
-from marshmallow import Schema, fields, validate
+from marshmallow import Schema, fields
 
 class UserSchema(Schema):
-    id = fields.Int(dump_only=True)
-    username = fields.Str(required=True, validate=validate.Length(min=3, max=50))
-    email = fields.Email(required=True)
-    bio = fields.Str(allow_none=True)
-    profile_image = fields.Str(allow_none=True)
-    created_at = fields.DateTime(dump_only=True)
+    id = fields.Int()
+    username = fields.Str(required=True)
+    email = fields.Str(required=True)
+    created_at = fields.DateTime()
 
 class PostSchema(Schema):
-    id = fields.Int(dump_only=True)
-    caption = fields.Str(allow_none=True)
+    id = fields.Int()
+    caption = fields.Str(required=True)
     image_video_url = fields.Str(required=True)
-    background_music = fields.Str(allow_none=True)
-    category = fields.Str(validate=validate.Length(max=50), allow_none=True)
-    datetime_posted = fields.DateTime(dump_only=True)
-    user_id = fields.Int(required=True)
+    background_music = fields.Str()
+    category = fields.Str(required=True)
+    datetime_posted = fields.DateTime()
+    user_id = fields.Int()
 
 class LikeSchema(Schema):
-    id = fields.Int(dump_only=True)
-    user_id = fields.Int(required=True)
-    post_id = fields.Int(required=True)
+    id = fields.Int()
+    user_id = fields.Int()
+    post_id = fields.Int()
 
 class CommentSchema(Schema):
-    id = fields.Int(dump_only=True)
-    user_id = fields.Int(required=True)
-    post_id = fields.Int(required=True)
+    id = fields.Int()
     content = fields.Str(required=True)
-    datetime_posted = fields.DateTime(dump_only=True)
+    user_id = fields.Int()
+    post_id = fields.Int()
+    datetime_commented = fields.DateTime()
+
+class FollowSchema(Schema):
+    id = fields.Int()
+    follower_id = fields.Int()
+    followed_id = fields.Int()
